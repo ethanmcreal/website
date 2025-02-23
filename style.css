@@ -1,0 +1,272 @@
+body {
+    background-color: #FFFFFF;
+    color: black;
+    font-family: Verdana, sans-serif;
+    box-sizing: auto;
+}
+header {
+    background-color: lightgrey;
+    text-align: center;
+    font-family: Georgia, serif;
+    display: block;
+    font-family: MingLiU-ExtB;
+    margin: 0 auto;
+    font-weight: bolder;
+}
+h1 {
+    line-height: 200%;
+    text-align: center;
+    margin-bottom: 0;
+    border-top:5px ridge;
+    border-right:5px ridge;
+    border-left:5px ridge;
+    word-wrap: break-word; 
+    font-weight: bolder;
+}
+h2{
+    font-family: MingLiU-ExtB;
+    text-align: center;
+    color: black;
+}
+p{
+    font-family: MingLiU-ExtB;
+    text-align: left;
+    font-size: larger;
+    color:black;
+    font-weight: bolder;
+    padding-left:50px;
+    padding-right:50px;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 6px;
+    font-stretch: ultra-expanded;
+    display: flex;
+    justify-content: center; 
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+}
+nav {
+    font-weight: bolder;
+    font-size: medium;
+    font-style: oblique;
+    letter-spacing: 2px;
+    background-color: lightgrey;
+    text-align: center;
+    padding-top: 4px;
+    margin:0;
+    border-bottom:5px ridge;
+    border-right:5px ridge;
+    border-left:5px ridge;
+    border-top: 5px ridge;
+    font-family: MingLiU-ExtB;
+    word-wrap: break-word; 
+}
+figure {
+    font-family: MingLiU-ExtB;
+    font-weight: bolder;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+audio {
+    width:100%;
+    max-width: 300px;
+    padding-top: 10px;
+}
+footer {
+    background-color: lightgrey;
+    font-size: medium;
+    font-style: italic;
+    font-weight: bold;
+    font-family: MingLiU-ExtB;
+    letter-spacing: 4px;
+    text-align: center;
+    border:5px ridge;
+    padding-bottom: 10px;
+    padding-top: 0;
+    word-wrap: break-word; 
+    margin-bottom: 20px;
+}
+
+iframe{
+    align-items: center;
+    max-width: 100%;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+}
+
+footer ul {
+    background-color: lightgrey;
+    list-style-type: none;
+    margin: 0;
+    padding-top: 6px;
+    font-stretch: ultra-expanded;
+    display: flex;
+    justify-content: center; 
+    padding: 10px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+}
+.wrapper {
+    width: 80%;
+    margin: auto;
+    background-color: #F0F0F0;
+    max-width: 80%; 
+    box-sizing: border-box;
+}
+
+.shop{
+    color:salmon
+}
+.shop a {
+    color: salmon;
+}
+
+.shop a:visited {
+    color: salmon;
+}
+.shop header{
+    color: salmon;
+}
+
+
+.home{
+    color:darkgreen;
+}
+.home a {
+    color:darkgreen;
+}
+
+.home a:visited {
+    color:darkgreen;
+}
+.home header{
+    color:darkgreen;
+}
+
+.tabs{
+    color:steelblue;
+}
+.tabs a {
+    color:steelblue;
+}
+
+.tabs a:visited {
+    color:steelblue;
+}
+.tabs header{
+    color:steelblue;
+}
+
+footer a[href^="mailto"] {
+    color: blue;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 1em;
+    }
+    header{
+        font-family: 'Courier New', Courier, monospace;
+    }
+    h1 {
+        font-size: 1.5em;
+        padding: 5px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    h2 {
+        font-size: 1.3em;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    p {
+        font-size: 1em;
+        padding: 5px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    iframe{
+        align-items: center;
+        max-width: 100%;
+        width: 90%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+    nav {
+        list-style-type: none;
+        margin: 0;
+        padding-top: 6px;
+        font-stretch: ultra-expanded;
+        display: flex;
+        justify-content: center; 
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding-top: 6px;
+        font-stretch: ultra-expanded;
+        display: flex;
+        justify-content: center; 
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    figure{
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    footer {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: lightgrey;
+        padding: 10px;
+        border: 5px ridge;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    footer ul {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        align-items: center;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    footer a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1em;
+        color: darkgreen; /* Adjust if needed */
+    }
+
+    footer a[href^="mailto"] {
+        margin-top: 10px;
+        color: blue;
+        max-width: 100%;
+    }
+    
+    .wrapper {
+        width: 95%;
+    }
+}
