@@ -1,0 +1,363 @@
+body {
+    background-color: #FFFFFF;
+    color: black;
+    font-family: Verdana, sans-serif;
+    box-sizing: auto;
+}
+header {
+    background-color: lightgrey;
+    text-align: center;
+    font-family: Georgia, serif;
+    display: block;
+    font-family: MingLiU-ExtB;
+    margin: 0 auto;
+    font-weight: bolder;
+}
+div {
+    text-align: center;
+}
+hr{
+    width: 80%;
+    color: darkblue;
+}
+h1 {
+    line-height: 200%;
+    text-align: center;
+    margin-bottom: 0;
+    border-top:5px ridge;
+    border-right:5px ridge;
+    border-left:5px ridge;
+    word-wrap: break-word; 
+    font-weight: bolder;
+}
+h2{
+    font-family: MingLiU-ExtB;
+    text-align: center;
+    color: black;
+    padding-left:2px;
+    padding-right:2px;
+}
+h3{
+    font-family: MingLiU-ExtB;
+    text-align: center;
+    color: black;
+    padding-left:2px;
+    padding-right:2px;
+}
+p{
+    font-family: MingLiU-ExtB;
+    text-align: center;
+    font-size: larger;
+    color:black;
+    font-weight: bolder;
+    padding-left:200px;
+    padding-right:200px;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 6px;
+    font-stretch: ultra-expanded;
+    display: flex;
+    justify-content: center; 
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+}
+nav {
+    font-weight: bolder;
+    font-size: medium;
+    font-style: oblique;
+    letter-spacing: 2px;
+    background-color: lightgrey;
+    text-align: center;
+    padding-top: 4px;
+    margin:0;
+    border-bottom:5px ridge;
+    border-right:5px ridge;
+    border-left:5px ridge;
+    border-top: 5px ridge;
+    font-family: MingLiU-ExtB;
+    word-wrap: break-word; 
+}
+figure {
+    font-family: MingLiU-ExtB;
+    font-weight: bolder;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+audio {
+    max-width: 80%;
+    padding-top: 10px;
+    text-align: center;
+}
+footer {
+    background-color: lightgrey;
+    font-size: medium;
+    font-style: italic;
+    font-weight: bold;
+    font-family: MingLiU-ExtB;
+    letter-spacing: 4px;
+    text-align: center;
+    border:5px ridge;
+    padding-bottom: 10px;
+    padding-top: 0;
+    word-wrap: break-word; 
+    margin-bottom: 20px;
+}
+
+iframe{
+    align-items: center;
+    max-width: 100%;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+}
+form{
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: medium;
+}
+textarea{
+    text-align: center;
+    max-width: 100%;
+    width: 70%;
+}
+label{
+    font-family: MingLiU-ExtB;
+    font-weight: bolder;
+}
+
+footer ul {
+    background-color: lightgrey;
+    list-style-type: none;
+    margin: 0;
+    padding-top: 6px;
+    font-stretch: ultra-expanded;
+    display: flex;
+    justify-content: center; 
+    padding: 10px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+}
+.wrapper {
+    width: 80%;
+    margin: auto;
+    max-width: 80%; 
+    box-sizing: border-box;
+}
+
+
+.shop{
+    color:salmon
+}
+.shop a {
+    color: salmon;
+}
+
+.shop a:visited {
+    color: #fa8072;
+}
+.shop header{
+    color: salmon;
+}
+.shop h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* Light gray with 40% opacity */
+}
+
+
+.home{
+    color:darkgreen;
+}
+.home a {
+    color:darkgreen;
+}
+
+.home a:visited {
+    color:darkgreen;
+}
+.home header{
+    color:darkgreen;
+}
+
+.home h2 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.4); /* Light gray with 40% opacity */
+}
+
+.tabs{
+    color:steelblue;
+}
+.tabs a {
+    color:steelblue;
+}
+
+.tabs h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* Light gray with 40% opacity */
+    color:whitesmoke;
+}
+
+.tabs a:visited {
+    color:steelblue;
+}
+.tabs header{
+    color:steelblue;
+}
+
+.jams{
+    color:darkblue;
+}
+.jams a {
+    color:darkblue;
+}
+
+.jams a:visited {
+    color:darkblue;
+}
+.jams header{
+    color:darkblue;
+}
+.jams h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* Light gray with 40% opacity */
+    color:whitesmoke;
+}
+
+footer a[href^="https://www.instagram.com/e_mcreal/"] {
+    color: blue;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 1em;
+    }
+    header{
+        font-family: 'Courier New', Courier, monospace;
+    }
+    h1 {
+        font-size: 1.5em;
+        padding: 5px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    hr{
+        width: 80%;
+        color: darkblue;
+    }
+    h2 {
+        font-size: 1.3em;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    h3{
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+        color: black;
+        padding-left:2px;
+        padding-right:2px;
+    }
+    p {
+        font-size: 1em;
+        padding: 5px;
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+    }
+    div {
+        text-align: center;
+    }
+    iframe{
+        align-items: center;
+        max-width: 100%;
+        width: 90%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+    nav {
+        list-style-type: none;
+        margin: 0;
+        padding-top: 6px;
+        font-stretch: ultra-expanded;
+        display: flex;
+        justify-content: center; 
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding-top: 6px;
+        font-stretch: ultra-expanded;
+        display: flex;
+        justify-content: center; 
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    figure{
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    footer {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: lightgrey;
+        padding: 10px;
+        border: 5px ridge;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    footer ul {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        align-items: center;
+        gap: 5px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    footer a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1em;
+        color: darkgreen; /* Adjust if needed */
+    }
+
+    footer a[href^="mailto"] {
+        margin-top: 10px;
+        color: blue;
+        max-width: 100%;
+    }
+
+    audio{
+        text-align: center;
+        max-width: 80%;
+    }
+    .wrapper{
+       
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+      }
+}

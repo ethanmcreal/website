@@ -1,0 +1,1739 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_parent">
+<meta charset="UTF-8">
+<style>
+    body {
+        height: 1000px;
+        width: 1071px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #000000;
+        background:#FFFFFF;
+    }
+
+    table, th, td {border: 0px solid black;border-collapse: collapse;font-family:"Ariel", Ariel; font-size:100%;font-weight: normal;}th, td, tc {padding: 20px;}
+
+</style>
+</head>
+<body>
+
+<center>
+<h2>
+Growing Pains</h2>by Ethan McNeal<br/>tab by Ethan McNeal
+<br/>
+</center>
+<table style="width:100%;background:#FFFFFF;">
+    <tr>
+      <th  align="left" style="vertical-align:bottom;">
+tempo = 85 bpm<br/>tuning = open Db (also can be called open C#)
+<br/>
+      </th>
+      <th align="center" style="vertical-align:top; width:120px">
+        <right>
+
+      </th>
+    </tr>
+</table>
+<canvas id="xtabCanvas" width="1071px" height="1515px" style="border:0px solid #ffffff;">
+Mobile Browsers may not open this html content from a local file. They will do open it from internet.</canvas>
+<script>
+    var TIME_4=4;
+    var TIME_8=8;
+    var TIME_16=16;
+    var TIME_32=32;
+    var TIME_3=12;
+    var TIME_6=24;
+    var TIME_5=20;
+    var TIME_8P=80;
+    var TIME_16P=160;
+    class Timing
+    {
+        constructor(time, value, tied)
+        {
+            this._time=time;
+            this._value=value;
+            this._l=tied;
+        }
+    }
+    class Value
+    {
+        constructor(v1, v2, v3, v4, v5, v6, b, s2, v, p)
+        {
+            this._s=[0, 0, 0, 0, 0, 0];
+            this._s[0]=v1;
+            this._s[1]=v2;
+            this._s[2]=v3;
+            this._s[3]=v4;
+            this._s[4]=v5;
+            this._s[5]=v6;
+            this._a=b;
+            this._o=s2;
+            this._c=v;
+            this._d=p;
+        }
+    }
+    class Bar
+    {
+        constructor(a,b,c,d,e)
+        {
+            this._lii=a;
+            this._te=[];
+            this._drawtiming=c;
+            this._ew=d;
+            this._em=e;
+            this._li=b;
+        }
+        addTime(time)
+        {
+            if (null == time)
+            {
+                return;
+            }
+            this._te.push(time);
+        }
+    }
+    class Song
+    {
+        constructor(strings,bpm, t1,t2,t3,t4,t5,t6,width,height)
+        {
+            this._s=strings;
+            this._yy=bpm;
+            this._gg=["E", "B", "G", "D", "A", "E"];
+            this._gg[0]=t1;
+            this._gg[1]=t2;
+            this._gg[2]=t3;
+            this._gg[3]=t4;
+            this._gg[4]=t5;
+            this._gg[5]=t6;
+            this._fa=[];
+            this.width=width;
+            this.height=height;
+        }
+        addBar(bar)
+        {
+            if (null == bar)
+            {
+                return;
+            }
+            this._fa.push(bar);
+        }
+        getSongHeight()
+        {
+            var ce=16;
+            var se=ce*this._s;
+            var io=ce*1.8;
+            var oi=ce*2.5;
+            var ee=se+io+oi;
+            var ii=(((this._fa.length + 1)/2)*ee)+50;
+            return ii;
+        }
+        draw(ctx)
+        {
+            var ce=16;
+            var barH=ce*this._s;
+            var io=ce*1.8;
+            var oi=ce*2.5;
+            var op=18;
+            var po=10;
+            var lineH=barH+io+oi;
+            ctx.fillStyle="#FFFFFF";
+            ctx.fillRect(0, 0, this.width, this.height);
+            ctx.fillStyle="#000000";
+            ctx.strokeStyle="#000000";
+            var x=0;
+            var y=0;
+            var len=this._fa.length;
+            var i=0;
+            var zzz=1;
+            while (i<len)
+            {
+                this.dys(ctx, y, op, po, io, oi, barH, ce,zzz);
+                zzz=zzz+2;
+                i=i+2;
+                y=y+lineH;
+            }
+            this.dyy(ctx, io, ce);
+        }
+        dys(ctx, y, op, po, io, oi, aa, ce, cc)
+        {
+            this.dd(ctx, y, op, po, io, oi, aa, ce, cc);
+            this.da(ctx, y, op, po, io, oi, aa, ce, cc-1);
+            this.da(ctx, y, op, po, io, oi, aa, ce, cc);
+        }
+        dd(ctx, y, op, po, io, oi, barH, ce, zzz)
+        {
+            ctx.fillStyle="#101010";
+            ctx.strokeStyle="#101010";
+            var x1=op;
+            var x2=this.width-po;
+            var x3=x2;
+            var huio=ce/2;
+            var hui=y+io+huio;
+            var huy=hui+(ce*(this._s-1));
+            var tyia=hui;
+            ctx.lineWidth=0.5;
+            ctx.beginPath();
+            ctx.moveTo(x1, tyia);
+            ctx.lineTo(x2, tyia);
+            ctx.stroke();
+            var i=1;
+            for (i=1;i<this._s;i++)
+            {
+                tyia=tyia+ce;
+                ctx.beginPath();
+                ctx.moveTo(x1, tyia);
+                ctx.lineTo(x2, tyia);
+                ctx.stroke();
+            }
+            ctx.beginPath();
+            ctx.moveTo(x1, hui);
+            ctx.lineTo(x1, huy);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(x2, hui);
+            ctx.lineTo(x2, huy);
+            ctx.stroke();
+            x2=(x2+x1)/2;
+            ctx.beginPath();
+            ctx.moveTo(x2, hui);
+            ctx.lineTo(x2, huy);
+            ctx.stroke();
+            ctx.lineWidth=1;
+            ctx.fillStyle="#45A9E7";;
+            ctx.font="12px Arial";
+            var num=zzz;
+            var zzzY=hui-huio;
+            ctx.fillText(num.toString(), x1, zzzY);
+            num=zzz+1;
+            ctx.fillText(num.toString(), x2, zzzY);
+            var bar=this._fa[zzz-1];
+            var xex=15;
+            if (bar._drawtiming)
+            {
+                this.dyb(ctx,bar._lii,bar._li,hui,huy,x1+xex);
+            }
+            if (bar._ew)
+            {
+                this.dyu(ctx,hui,huy,x1);
+            }
+            if (bar._em)
+            {
+                this.dii(ctx,hui,huy,x2);
+            }
+            if (zzz < this._fa.length)
+            {
+                bar=this._fa[zzz];
+                if (bar._drawtiming)
+                {
+                    this.dyb(ctx,bar._lii,bar._li,hui,huy,x2+xex);
+                }
+                    if (bar._ew)
+                {
+                    this.dyu(ctx,hui,huy,x2);
+                }
+                    if (bar._em)
+                {
+                    this.dii(ctx,hui,huy,x3);
+                }
+            }
+        }
+
+        dyy(ctx, y, ce)
+        {
+            ctx.fillStyle="#101010";;
+            ctx.font="12px Arial";
+            var sy=y+ce-6;
+            var i=0;
+            for (i=0;i<this._s;i++)
+            {
+                ctx.fillText(this._gg[i], 0, sy);
+                sy=sy+ce;
+            }
+        }
+
+        dyb(ctx,timing,timeBase,hui,huy,x)
+        {
+            ctx.fillStyle="#A4A4A4";
+            ctx.font="20px Arial";
+            var ca=(hui+huy)/2;
+            var t1=timing;
+            var t2=timeBase;
+            ctx.fillText(t1.toString(), x, ca-2);
+            ctx.fillText(t2.toString(), x, ca+20);
+        }
+
+        dyu(ctx,hui,huy,x)
+        {
+            ctx.fillStyle="#000000";
+            ctx.strokeStyle="#000000";
+            var ca=(hui+huy)/2;
+            var aso=6;
+            var h=huy-hui;
+            var w=3;
+            ctx.fillRect(x,hui,w,h);
+            var x2=x+w+w;
+            ctx.beginPath();
+            ctx.moveTo(x2, hui);
+            ctx.lineTo(x2, huy);
+            ctx.stroke();
+            var r=2.5;
+            x2=x2+w+2;
+            ctx.beginPath();
+            ctx.arc(x2, ca-aso-r, r, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x2, ca+aso+r, r, 0, 2*Math.PI);
+            ctx.fill();
+        }
+
+        dii(ctx,hui,huy,x)
+        {
+            ctx.fillStyle="#000000";
+            ctx.strokeStyle="#000000";
+            var ca=(hui+huy)/2;
+            var aso=6;
+            var h=huy-hui;
+            var w=3;
+            ctx.fillRect(x-w,hui,w,h);
+            var x2=x-w-w;
+            ctx.beginPath();
+            ctx.moveTo(x2, hui);
+            ctx.lineTo(x2, huy);
+            ctx.stroke();
+            var r=2.5;
+            x2=x2-w-2;
+            ctx.beginPath();
+            ctx.arc(x2, ca-aso-r, r, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x2, ca+aso+r, r, 0, 2*Math.PI);
+            ctx.fill();
+        }
+
+
+        se(time,klik,popo,popoi,vimo,feru,sexi,moxi)
+        {
+            var fgh=0;
+            switch (time)
+            {
+                case TIME_4:
+                    fgh=klik;
+                    break;
+                    case TIME_8:
+                    fgh=popo;
+                    break;
+                              case TIME_16:
+                    fgh=popoi;
+                    break;
+                        case TIME_32:
+                    fgh=vimo;
+                    break;
+                        case TIME_3:
+                    fgh=feru;
+                    break;
+                    case TIME_6:
+                    fgh=sexi;
+                    break;
+                        case TIME_5:
+                    fgh=moxi;
+                    break;
+                        case TIME_8P:
+                    fgh=popo+popoi;
+                    break;
+                        case TIME_16P:
+                    fgh=popoi+vimo;
+                    break;
+                    default:
+                    fgh=0;
+                    break;
+            }
+            return fgh;
+        }
+
+        da(ctx, y, op, po, io, oi, barH, ce, zzz)
+        {
+            if (zzz >= this._fa.length)
+            {
+                return;
+            }
+            var bar=this._fa[zzz];
+            var len=bar._te.length;
+            if (len <= 0)
+            {
+                return;
+            }
+            var ook=this.width-po-op;
+            ook=ook/2;
+            var plk=30;
+            var plc=15;
+            var cxz=ook-plk-plc;
+            var hiri=8;
+            if (bar._li == 8)
+            {
+                hiri=bar._lii;
+            }
+            else
+            {
+                hiri=bar._lii*2;
+            }
+            var popo=cxz/hiri;
+            var klik=popo*2;
+            var popoi=popo/2;
+            var vimo=popo/4;
+            var feru=klik/3;
+            var sexi=feru/2;
+            var moxi=klik/5;
+            var i=0;
+            var time=null;
+            var fgh=1;
+            var gvc=0;
+            var x=op+plk;
+            var ys=y+io;
+            var wq=ys+(this._s*ce);
+            if ((zzz % 2) != 0)
+            {
+                x=x+ook;
+            }
+            var jhg=0;
+            var ffd=0;
+            var ggff=klik;
+            if (bar._li == 8)
+            {
+                ggff=popo;
+            }
+            var vv=null;
+            var xcv=null;
+            var yok=null;
+            var shir=-1;
+            var pm=-1;
+            var pmStartX=0;
+            var pmEndX=0;
+            for (i=0;i<len;i++)
+            {
+                time=bar._te[i];
+                    xcv=null;
+                yok=null;
+                if ((i+1) < len)
+                {
+                    yok=bar._te[i+1];
+                    xcv=yok._time;
+                }
+                    if ((time._value != null) && (time._value._d))
+                {
+                    if (pm > 0)
+                    {
+                        pm=2;
+                        if ((yok == null) || (yok._value == null) ||(!yok._value._d))
+                        {
+                            pm=3;
+                            pmEndX=x+ffd;
+                        }
+                    }else{
+                        pm=1;
+                        pmStartX=x+ffd;
+                    }
+                }else{
+                    pm=-1;
+                }
+                    switch (time._time)
+                {
+                    case TIME_4:
+                        fgh=klik;
+                        break;
+                                case TIME_8:
+                        fgh=popo;
+                        break;
+                                          case TIME_16:
+                        fgh=popoi;
+                        break;
+                                case TIME_32:
+                        fgh=vimo;
+                        break;
+                                case TIME_3:
+                        fgh=feru;
+                        break;
+                            case TIME_6:
+                        fgh=sexi;
+                        break;
+                                case TIME_5:
+                        fgh=moxi;
+                        if (shir < 0)
+                        {
+                            shir=x+ffd;
+                        }
+                        break;
+                                case TIME_8P:
+                        fgh=popo+popoi;
+                        break;
+                                case TIME_16P:
+                        fgh=popoi+vimo;
+                        break;
+                            default:
+                        fgh=0;
+                        break;
+                }
+                    jhg=this.sz(ctx,x+ffd,ys,fgh,time,ce);
+                var ew=0;
+                if (time._l)
+                {
+                    ew=this.se(xcv,klik,popo,popoi,vimo,feru,sexi,moxi);
+                }
+                    this.vio(ctx,x+ffd,jhg,fgh,time,wq, ffd, ggff,vv,xcv,pm,ew,ys-4);
+                    if ((time._time == TIME_5) && (xcv != TIME_5))
+                {
+                    this.ba(ctx,((x+ffd+fgh)+shir)/2, wq);
+                }
+                    if (pm == 1)
+                {
+                    pmStartX=pmStartX+fgh;
+                }
+                                         if (pm == 3)
+                {
+                    pmEndX=pmEndX+fgh;
+                    this.kkjk(ctx,pmStartX,pmEndX,wq);
+                }
+                                         if (time._time != TIME_5)
+                {
+                    shir=-1;
+                }
+                                         if ((time._value != null) && (time._value._c == true))
+                {
+                    var half=fgh/2;
+                    this.oop(ctx,x+ffd+half,x+ffd+fgh+5,ys-5);
+                }
+                    vv=time._time;
+                    ffd=ffd+fgh;
+                }
+                                 }
+                                 fgh(ctx,ssrt,dcvb,ce,cj, slide, iord)
+        {
+            ctx.fillStyle="#000000";
+            ctx.strokeStyle="#000000";
+            var y=iord;
+            if (slide > 0)
+            {
+                y=iord+ce+5;
+            }else{
+                y=iord-ce-5;
+            }
+                    ctx.beginPath();
+            ctx.moveTo(dcvb, y);
+            ctx.lineTo(ssrt, iord);
+            ctx.stroke();
+                        if ((slide > 2) || (slide < -2))
+            {
+                return;
+            }
+            var v=cj-slide;
+            var text=v.toString();
+                        ctx.font="10px Arial";
+            var ff=ctx.measureText(text);
+            if (slide < 0)
+            {
+                ctx.fillText(text, dcvb-(ff.width/2) , y-2);
+            }else{
+                ctx.fillText(text, dcvb -(ff.width/2), y+10);
+            }
+        }
+                                           ddea(ctx,fgd,fdg,ce,jccs, dfg)
+        {
+           ctx.fillStyle="#000000";
+           ctx.strokeStyle="#000000";
+           var y=dfg-ce-ce-2;
+           var bendW=ce+2;
+           var textOffset=ce;
+           if (jccs < 0)
+           {
+               ctx.beginPath();
+               ctx.moveTo(fgd, dfg);
+               ctx.bezierCurveTo(fgd-ce, dfg-5, fgd-ce, dfg-15, fgd-ce, y);
+               ctx.stroke();
+                  ctx.beginPath();
+               ctx.moveTo(fgd, dfg);
+               ctx.lineTo(fgd-4, dfg-5);
+               ctx.lineTo(fgd-5, dfg+2);
+               ctx.lineTo(fgd, dfg);
+               ctx.fill();
+           }else if (jccs > 100){
+               var ewwq=ce/2;
+               ctx.beginPath();
+               ctx.moveTo(fdg, dfg);
+               ctx.bezierCurveTo(fdg, y+5, fdg, y, fdg+ewwq, y);
+               ctx.stroke();
+                  ctx.beginPath();
+               ctx.moveTo(fdg+ce, dfg);
+               ctx.bezierCurveTo(fdg+ewwq, dfg-5, fdg+ewwq, dfg-15, fdg +ewwq, y);
+               ctx.stroke();
+                  ctx.beginPath();
+               ctx.moveTo(fdg+ce, dfg);
+               ctx.lineTo(fdg+ce-1, dfg-5);
+               ctx.lineTo(fdg+ce-5, dfg);
+               ctx.lineTo(fdg+ce, dfg);
+               ctx.fill();
+               textOffset=ewwq;
+           }else{
+               ctx.beginPath();
+               ctx.moveTo(fdg, dfg);
+               ctx.bezierCurveTo(fdg+ce, dfg-5, fdg+ce, dfg-15, fdg+ce, y);
+               ctx.stroke();
+                  ctx.beginPath();
+               ctx.moveTo(fdg+ce, y);
+               ctx.lineTo(fdg+ce-2, y+4);
+               ctx.lineTo(fdg+ce+2, y+4);
+               ctx.lineTo(fdg+ce, y);
+               ctx.fill();
+           }
+           var text="full";
+           if ((jccs == -1) || (jccs == 1) || (jccs == 101))
+           {
+               text="1/2"
+           }
+           ctx.font="10px Arial";
+           var ff=ctx.measureText(text);
+          if (jccs < -1)
+           {
+               ctx.fillText(text, fgd-textOffset-(ff.width/2) , y-2);
+           }else{
+                ctx.fillText(text, fdg+textOffset-(ff.width/2) , y-2);
+           }
+        }
+        sz(ctx,x,y,fgh,time,ce)
+        {
+            var val=time._value;
+            if (val == null)
+            {
+                return -1;
+            }
+            var i=0;
+            var v=0;
+            var top=y+ce;
+            var gvc=8;
+            var ff=null;
+            var text=null;
+            var uitr=0;
+            var valuebottom=-1;
+                        var cj=-1;
+            var ssrt=0;
+            var dcvb=0;
+            var valY=0;
+                       var jccs=-1;
+            var fgd=0;
+            var fdg=0;
+            for (i=0;i<this._s;i++)
+            {
+                v=val._s[i];
+                        if ((v >= 0) || (v == -100))
+                {
+                    if (fgh > 20)
+                    {
+                        ctx.font="14px Arial";
+                        gvc=14;
+                    }
+                    else
+                    {
+                        if (v < 10)
+                        {
+                            ctx.font="14px Arial";
+                            gvc=14;
+                        }else{
+                            ctx.font="11px Arial";
+                            gvc=11;
+                        }
+                                    }
+                                            if (v == -100)
+                    {
+                        text="x";
+                                }else{
+                        text=v.toString();
+                    }
+                      ff=ctx.measureText(text);
+                    uitr=x+((fgh-ff.width)/2);
+                            if ((val._o != 0) && (cj < 0) && (v >= 0))
+                    {
+                        cj=v;
+                        ssrt=uitr;
+                        dcvb=x+1;
+                        valY=top-gvc/2;
+                    }else if ((val._a != 0) && (jccs < 0) && (v >= 0))
+                    {
+                        jccs=v;
+                        fgd=uitr;
+                        fdg=uitr+ff.width;
+                        valY=top-(gvc/2)-5;
+                    }
+                                             ctx.fillStyle="#FFFFFF";
+                    ctx.fillRect(uitr-1, top-(ff.actualBoundingBoxAscent/2)-gvc, ff.width+2, gvc);
+                    ctx.fillStyle="#000000";
+                    ctx.fillText(text, uitr, top-(ff.actualBoundingBoxAscent/2) );
+                            valuebottom=top-(ff.actualBoundingBoxAscent/2)+4;
+                                                             }
+                top=top+ce;
+            }
+                                         if (val._o != 0)
+            {
+                this.fgh(ctx,ssrt,dcvb,ce,cj, val._o,valY);
+            }
+            else if (val._a != 0)
+            {
+                this.ddea(ctx,fgd,fdg,ce, val._a,valY);
+            }
+                            return valuebottom;
+        }
+                                     ba(ctx,x,wq)
+        {
+            var vgid=wq+20;
+            var text="5";
+            ctx.font="12px Arial";
+            var ff=ctx.measureText(text);
+            ctx.fillStyle="#000000";
+            ctx.fillText(text, x-(ff.width/2), vgid+12 );
+        }
+                                kkjk(ctx,sx,ex,wq)
+        {
+            ctx.fillStyle="#000000";
+            ctx.strokeStyle="#000000";
+            var vgid=wq+32;
+            var ewwq=4;
+            var x=sx;
+            var end=ex;
+            var stroke=true;
+                while (x < ex)
+            {
+                if (stroke)
+                {
+                    end=x+ewwq;
+                    if (end > ex)
+                    {
+                        end=ex;
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(x, vgid);
+                    ctx.lineTo(end, vgid);
+                    ctx.stroke();
+                    stroke=false;
+                }else{
+                    stroke=true;
+                }
+                x=x+ewwq;
+            }
+                    ctx.beginPath();
+            ctx.moveTo(ex, vgid-5);
+            ctx.lineTo(ex, vgid+5);
+            ctx.stroke();
+            }
+                                oop(ctx,sx,ex,y)
+        {
+            ctx.fillStyle="#000000";
+            ctx.strokeStyle="#000000";
+            var r=2;
+            var x=sx+r+r;
+            var up=true;
+                while (x < ex)
+            {
+                if (up)
+                {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, Math.PI, 2*Math.PI);
+                    ctx.fill();
+                            up=false;
+                }else{
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI);
+                    ctx.stroke();
+                    up=true;
+                }
+                    x=x+r+r;
+            }
+        }
+                                uiii(ctx,pm,wq,sx)
+        {
+            if (pm > 0)
+            {
+                var pmY=wq+25;
+                                if (pm == 1)
+                {
+                    var text="pm";
+                    ctx.font="12px Arial";
+                    var ff=ctx.measureText(text);
+                    ctx.fillStyle="#000000";
+                    ctx.fillText(text, sx-(ff.width/2), pmY+12 );
+                }
+            }
+        }
+                                         ttr(ctx,ko,oppi,tieY)
+        {
+            if (oppi > 0)
+            {
+                    ctx.beginPath();
+                ctx.moveTo(ko, tieY);
+                ctx.bezierCurveTo(ko, tieY-15, oppi, tieY-15, oppi, tieY);
+                ctx.stroke();
+            }
+        }
+                                     vio(ctx,x,jhg,fgh,time,wq, ffd, ggff, vv,xcv, pm,ew, tieY)
+        {
+            if (time._value == null)
+            {
+                ctx.fillStyle="#909090";
+                ctx.strokeStyle="#909090";
+            }else
+            {
+                ctx.fillStyle="#000000";
+                ctx.strokeStyle="#000000";
+            }
+                        var nnm=jhg;
+            if (nnm < 0)
+            {
+                nnm=wq;
+            }
+            var vgid=wq+20;
+            var ko=x+(fgh/2);
+            ctx.beginPath();
+            ctx.moveTo(ko, nnm);
+            ctx.lineTo(ko, vgid);
+            ctx.stroke();
+             var sx=ko;
+            var ex=ko+(fgh/2);
+            var tailaso=5;
+            var ty=0;
+            var oppi=0;
+                             var n1=ffd/ggff;
+            var n1D=n1;
+            n1=Math.trunc(n1 + 0.01);
+            var n2=(ffd+fgh)/ggff;
+            var n2D=n2;
+            n2=Math.trunc(n2 + 0.01);
+                   if (time._l)
+            {
+                oppi=ex+(ew/2);
+            }
+                               if (xcv == time._time)
+            {
+                if (n2 == n1)
+                {
+                    ex=ko+fgh;
+                }else{
+                    if (time._time == TIME_5)
+                    {
+                        ex=ko+fgh;
+                    }
+                    else if (((time._time == TIME_3) || (time._time == TIME_6)) && ((n2D - n2) > 0.05)){
+                            ex=ko+fgh;
+                    }
+                    else
+                    {
+                        if ((n1D-n1) > 0.05)
+                        {
+                            if (vv == time._time)
+                            {
+                                if ((TIME_16P != vv) && (TIME_8P != vv))
+                                {
+                                    this.uiii(ctx,pm,wq,sx);
+                                    this.ttr(ctx,ko,oppi,tieY);
+                                    return;
+                                }
+                            }else{
+                                if ((vv == TIME_16) && (time._time == TIME_8))
+                                {
+                                    this.uiii(ctx,pm,wq,sx);
+                                    this.ttr(ctx,ko,oppi,tieY);
+                                    return;
+                                }
+                                                    if ((vv == TIME_32) && (time._time == TIME_16))
+                                {
+                                    this.uiii(ctx,pm,wq,sx);
+                                    this.ttr(ctx,ko,oppi,tieY);
+                                    return;
+                                }
+                                                    if ((vv == TIME_6) && (time._time == TIME_3))
+                                {
+                                    this.uiii(ctx,pm,wq,sx);
+                                    this.ttr(ctx,ko,oppi,tieY);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }else{
+                if (n2 == n1)
+                {
+                    if ((vv == time._time) && ((n1D-n1) > 0.05))
+                    {
+                        if ((TIME_16P != vv) && (TIME_8P != vv))
+                        {
+                            if ((time._time == TIME_16) && (xcv == TIME_8))
+                            {
+                                ex=ko+((fgh*3)/2);
+                                ctx.beginPath();
+                                ctx.moveTo(sx, vgid);
+                                ctx.lineTo(ex, vgid);
+                                ctx.stroke();
+                                                                 this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                                            if ((time._time == TIME_32) && (xcv == TIME_16))
+                            {
+                                ex=ko+((fgh*3)/2);
+                                ctx.beginPath();
+                                ctx.moveTo(sx, vgid);
+                                ctx.lineTo(ex, vgid);
+                                ctx.stroke();
+                                                    ty=vgid-tailaso;
+                                ctx.beginPath();
+                                ctx.moveTo(sx, ty);
+                                ctx.lineTo(ex, ty);
+                                ctx.stroke();
+                                this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                             if ((time._time == TIME_6) && (xcv == TIME_3))
+                            {
+                                ex=ko+((fgh*3)/2);
+                                ctx.beginPath();
+                                ctx.moveTo(sx, vgid);
+                                ctx.lineTo(ex, vgid);
+                                ctx.stroke();
+                                    this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                        this.uiii(ctx,pm,wq,sx);
+                            this.ttr(ctx,ko,oppi,tieY);
+                            return;
+                        }
+                    }
+                            if ((time._time == TIME_8) && (xcv == TIME_16))
+                    {
+                        ex=ko+((fgh*3)/4);
+                    }
+                    else if ((time._time == TIME_16) && (xcv == TIME_32))
+                    {
+                        ex=ko+((fgh*3)/4);
+                    }
+                    else if ((time._time == TIME_3) && (xcv == TIME_6))
+                    {
+                        ex=ko+((fgh*3)/4);
+                    }
+                        }else{
+                    if ((n1D-n1) > 0.05)
+                    {
+                        if (vv == time._time)
+                        {
+                            if ((TIME_16P != vv) && (TIME_8P != vv))
+                            {
+                                this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                        }else{
+                                                if ((vv == TIME_16) && (time._time == TIME_8))
+                            {
+                                this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                                            if ((vv == TIME_32) && (time._time == TIME_16))
+                            {
+                                this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                                            if ((vv == TIME_6) && (time._time == TIME_3))
+                            {
+                                this.uiii(ctx,pm,wq,sx);
+                                this.ttr(ctx,ko,oppi,tieY);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+                             switch(time._time)
+            {
+                        case TIME_8:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex, vgid);
+                    ctx.stroke();
+                    break;
+                     case TIME_16:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex, vgid);
+                    ctx.stroke();
+                            ty=vgid-tailaso;
+                    ctx.beginPath();
+                    ctx.moveTo(sx, ty);
+                    ctx.lineTo(ex, ty);
+                    ctx.stroke();
+                    break;
+                                case TIME_32:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex, vgid);
+                    ctx.stroke();
+                            ty=vgid-tailaso;
+                    ctx.beginPath();
+                    ctx.moveTo(sx, ty);
+                    ctx.lineTo(ex, ty);
+                    ctx.stroke();
+                            ty=ty-tailaso;
+                    ctx.beginPath();
+                    ctx.moveTo(sx, ty);
+                    ctx.lineTo(ex, ty);
+                    ctx.stroke();
+                    break;
+                        case TIME_3:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex, vgid);
+                    ctx.stroke();
+                    break;
+                    case TIME_6:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex, vgid);
+                    ctx.stroke();
+                            ty=vgid-tailaso;
+                    ctx.beginPath();
+                    ctx.moveTo(sx, ty);
+                    ctx.lineTo(ex, ty);
+                    ctx.stroke();
+                    break;
+                        case TIME_5:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex, vgid);
+                    ctx.stroke();
+                            ty=vgid-tailaso;
+                    ctx.beginPath();
+                    ctx.moveTo(sx, ty);
+                    ctx.lineTo(ex, ty);
+                    ctx.stroke();
+                    break;
+                        case TIME_8P:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex-(fgh/4), vgid);
+                    ctx.stroke();
+                                        ctx.beginPath();
+                    ctx.arc(ex-(fgh/4), vgid-12, 3, 0, 2*Math.PI);
+                    ctx.fill();
+                    break;
+                        case TIME_16P:
+                    ctx.beginPath();
+                    ctx.moveTo(sx, vgid);
+                    ctx.lineTo(ex-(fgh/4), vgid);
+                    ctx.stroke();
+                            ty=vgid-tailaso;
+                    ctx.beginPath();
+                    ctx.moveTo(sx, ty);
+                    ctx.lineTo(ex-(fgh/4), ty);
+                    ctx.stroke();
+                                        ctx.beginPath();
+                    ctx.arc(ex-(fgh/4), vgid-12, 3, 0, 2*Math.PI);
+                    ctx.fill();
+                    break;
+                    }
+                                this.uiii(ctx,pm,wq,sx);
+            this.ttr(ctx,ko,oppi,tieY);
+        }
+
+    }
+var canvasX = document.getElementById("xtabCanvas");
+var bounds = canvasX.getBoundingClientRect();
+var song = new Song(6,85,"C#","G#","F","C#","G#","C#",bounds.width,bounds.height);
+function initialize()
+{
+    var bar = null;
+bar = new Bar(3,4,true,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,0,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,0,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,0,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,9,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,9,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,9,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,9,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,7,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,7,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,9,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,7,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,7,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,7,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(8,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,0,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(2,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(2,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(2,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,3,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(2,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,3,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,8,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(7,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,8,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(4,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(4,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(4,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(4,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,0,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,5,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(8,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,new Value(-1,-1,-1,-1,-1,5,0,0,false,false), false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,0,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(0,-1,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,4,-1,-1,-1,-1,0,0,false,false), false));
+bar.addTime(new Timing(16,new Value(-1,-1,0,-1,-1,-1,0,0,false,false), false));
+song.addBar(bar);bar = new Bar(3,4,false,false,false);
+bar.addTime(new Timing(24,new Value(-1,-1,-1,-1,-1,0,0,0,false,false), false));
+bar.addTime(new Timing(24,new Value(-1,-1,-1,-1,0,-1,0,0,false,false), false));
+bar.addTime(new Timing(24,null, false));
+bar.addTime(new Timing(24,null, false));
+bar.addTime(new Timing(24,null, false));
+bar.addTime(new Timing(24,null, false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+bar.addTime(new Timing(8,null, false));
+song.addBar(bar);
+    var height = song.getSongHeight();
+    var oldHeight = document.body.height;
+    var change = height - canvasX.height;
+    canvasX.height = height;
+    document.body.height += change;
+}
+function draw()
+{
+    var c = document.getElementById("xtabCanvas");
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "#FFFFFF";
+    var rect = c.getBoundingClientRect();
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    song.draw(ctx);
+}
+initialize();
+draw();
+
+</script>
+</body>
+</html>
